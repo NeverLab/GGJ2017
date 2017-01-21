@@ -14,6 +14,7 @@ namespace Assets.Scripts
         public Material[] TrailMaterials;
         public Renderer Renderer;
         public Material[] RabbitMaterials;
+        public Collider[] Colliders;
         public bool catched;
 
         private Vector3 _direction = Vector3.forward;
@@ -29,8 +30,12 @@ namespace Assets.Scripts
             if (catched)
             {
                 _direction = Vector3.zero;
+                foreach (var collider in Colliders)
+                    collider.enabled = false;
                 return;
             }
+            foreach (var collider in Colliders)
+                collider.enabled = true;
 
             var x = CrossPlatformInputManager.GetAxis("Horizontal" + ControllerId) + Input.GetAxis("Horizontal" + ControllerId);
             var y = CrossPlatformInputManager.GetAxis("Vertical" + ControllerId) + Input.GetAxis("Vertical" + ControllerId);
@@ -55,6 +60,12 @@ namespace Assets.Scripts
 
         public void FixedUpdate()
         {
+            if (catched) {
+                return;
+            }
+            foreach (var collider in Colliders)
+                collider.enabled = true;
+
             GetComponent<CharacterController>().Move(_direction * Speed * Time.fixedDeltaTime);
         }
 
