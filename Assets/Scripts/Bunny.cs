@@ -14,6 +14,7 @@ namespace Assets.Scripts
         public Material[] TrailMaterials;
         public Renderer Renderer;
         public Material[] RabbitMaterials;
+        public bool Captured;
 
         private Vector3 _direction = Vector3.forward;
 
@@ -25,6 +26,12 @@ namespace Assets.Scripts
         
         public void Update()
         {
+            if (Captured)
+            {
+                _direction = Vector3.zero;
+                return;
+            }
+
             var x = CrossPlatformInputManager.GetAxis("Horizontal" + ControllerId) + Input.GetAxis("Horizontal" + ControllerId);
             var y = CrossPlatformInputManager.GetAxis("Vertical" + ControllerId) + Input.GetAxis("Vertical" + ControllerId);
 
@@ -51,9 +58,10 @@ namespace Assets.Scripts
             GetComponent<CharacterController>().Move(_direction * Speed * Time.fixedDeltaTime);
         }
 
-        private void Clone()
+        public void Clone()
         {
-            var offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+            var angle = Random.Range(0, Mathf.PI);
+            var offset = new Vector3(Mathf.Sign(angle), 0, Mathf.Cos(angle)) * transform.lossyScale.x;
 
             Instantiate(this, transform.position + offset, transform.rotation, transform.parent).transform.localScale = transform.localScale;
         }
