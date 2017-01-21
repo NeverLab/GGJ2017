@@ -12,9 +12,14 @@ namespace Assets.Scripts
         public string AnimatorRunFlag = "Run";
 
         private Vector3 _direction = Vector3.forward;
+
+        public bool catched = false;
         
         public void Update()
         {
+            if (catched)
+                return;
+
             var x = CrossPlatformInputManager.GetAxis("Horizontal" + ControllerId);
             var y = CrossPlatformInputManager.GetAxis("Vertical" + ControllerId);
 
