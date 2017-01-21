@@ -14,7 +14,7 @@ namespace Assets.Scripts
         public Material[] TrailMaterials;
         public Renderer Renderer;
         public Material[] RabbitMaterials;
-        public bool Captured;
+        public bool catched;
 
         private Vector3 _direction = Vector3.forward;
 
@@ -26,7 +26,7 @@ namespace Assets.Scripts
         
         public void Update()
         {
-            if (Captured)
+            if (catched)
             {
                 _direction = Vector3.zero;
                 return;
