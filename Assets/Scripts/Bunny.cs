@@ -8,6 +8,8 @@ namespace Assets.Scripts
     {
         public float Speed;
         public int ControllerId;
+        public Animator AnimatorController;
+        public string AnimatorRunFlag = "Run";
 
         private Vector3 _direction = Vector3.forward;
         
@@ -30,6 +32,8 @@ namespace Assets.Scripts
             {
                 y = Input.GetAxis("Vertical" + ControllerId);
             }
+
+            AnimatorController.SetBool (AnimatorRunFlag, x != 0 || y != 0);
 
             _direction = new Vector3(x, 0, y);
             _direction.y -= 320 * Time.deltaTime;
