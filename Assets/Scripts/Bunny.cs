@@ -17,8 +17,10 @@ namespace Assets.Scripts
         
         public void Update()
         {
-            if (catched)
+            if (catched) {
+                AnimatorController.SetBool (AnimatorRunFlag, false);
                 return;
+            }                
 
             var x = CrossPlatformInputManager.GetAxis("Horizontal" + ControllerId);
             var y = CrossPlatformInputManager.GetAxis("Vertical" + ControllerId);
