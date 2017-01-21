@@ -10,6 +10,7 @@ namespace Assets.Scripts
         public int ControllerId;
         public Animator AnimatorController;
         public string AnimatorRunFlag = "Run";
+        public Collider[] Colliders;
 
         private Vector3 _direction = Vector3.forward;
 
@@ -19,8 +20,12 @@ namespace Assets.Scripts
         {
             if (catched) {
                 AnimatorController.SetBool (AnimatorRunFlag, false);
+                foreach (var collider in Colliders)
+                    collider.enabled = false;
                 return;
-            }                
+            }
+            foreach (var collider in Colliders)
+                collider.enabled = true;
 
             var x = CrossPlatformInputManager.GetAxis("Horizontal" + ControllerId);
             var y = CrossPlatformInputManager.GetAxis("Vertical" + ControllerId);
@@ -48,6 +53,11 @@ namespace Assets.Scripts
 
         public void FixedUpdate()
         {
+            if (catched)
+                return;
+            foreach (var collider in Colliders)
+                collider.enabled = true;
+
             if (_direction.magnitude > 0)
             {
                 transform.LookAt(transform.position + _direction);
