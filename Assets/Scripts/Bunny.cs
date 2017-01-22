@@ -71,6 +71,10 @@ namespace Assets.Scripts
 
         public void Clone()
         {
+            if (catched) {
+                return;
+            }
+
             var angle = Random.Range(0, Mathf.PI);
             var offset = new Vector3(Mathf.Sign(angle), 0, Mathf.Cos(angle)) * transform.lossyScale.x;
 

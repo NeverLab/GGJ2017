@@ -11,7 +11,10 @@ using UnityStandardAssets.ImageEffects;
 
 public class ArcTeleporter : MonoBehaviour 
 {
-	public enum ArcMaterial
+    public GameObject Effect;
+    public GameObject EffectTarget;
+
+    public enum ArcMaterial
 	{
 		MATERIAL,
 		COLOUR
@@ -979,6 +982,12 @@ public class ArcTeleporter : MonoBehaviour
 			_roomShapeInstance.SetActive(false);
 			oldTrackpadAxis = Vector2.zero;
 		}
+
+        if(Effect != null && EffectTarget != null) {
+            Effect.SetActive (false);
+            Effect.transform.position = EffectTarget.transform.position;
+            Effect.SetActive (true);
+        }
 	}
 
 	virtual protected void CreateFadeQuad()

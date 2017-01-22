@@ -34,7 +34,12 @@ public class ArcTeleporterEditor : Editor
 		SerializedProperty disablePreMadeControls = serializedTeleporter.FindProperty("disablePreMadeControls");
 		disablePreMadeControls.boolValue = EditorGUILayout.Toggle("Disable Pre Made Controls", disablePreMadeControls.boolValue);
 
-		if (!disablePreMadeControls.boolValue)
+        SerializedProperty Effect = serializedTeleporter.FindProperty ("Effect");
+        Effect.objectReferenceValue = EditorGUILayout.ObjectField ("Effect GO", Effect.objectReferenceValue, typeof (GameObject), true);
+        SerializedProperty EffectTarget = serializedTeleporter.FindProperty ("EffectTarget");
+        EffectTarget.objectReferenceValue = EditorGUILayout.ObjectField ("Effect Target GO", EffectTarget.objectReferenceValue, typeof (GameObject), true);
+
+        if (!disablePreMadeControls.boolValue)
 		{
 			SerializedProperty controlScheme = serializedTeleporter.FindProperty("controlScheme");
 			controlScheme.intValue = (int)(ArcTeleporter.ControlScheme)EditorGUILayout.EnumPopup("Control Scheme", (ArcTeleporter.ControlScheme)controlScheme.intValue);

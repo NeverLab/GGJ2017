@@ -7,6 +7,7 @@ public class HandController : MonoBehaviour {
 
     //public string PikableTagName = "Pikable";
     public string BunnyTagName = "Bunny";
+    public string MicrowaveTagName = "Microwave";
     public SteamVR_TrackedController TrackController;
     public Vector3 Offset = new Vector3 (0.2f, 0.0f, -0.06f);
     private Transform _target;
@@ -18,13 +19,24 @@ public class HandController : MonoBehaviour {
 
         //Debug.LogWarning ("Stay(" + name + "): " + target.name);
 
-        if (_catched)
+        if (_catched) {
+            if(target.tag != BunnyTagName) Debug.LogWarning ("tag"+target.tag);
+            if (_catchedTarget != null && target.tag == MicrowaveTagName) {
+                Debug.LogWarning ("MW!!!");
+                target.GetComponent<Microwave>().DestroyBunny (_catchedTarget.gameObject);
+
+                _catchedTarget = null;
+                _target = null;
+                _catched = false;
+            }
             return;
+        }
 
         //if (target.transform.tag != PikableTagName)
         //    return;
 
-        _target = target.transform;
+        if(target.tag != MicrowaveTagName)
+            _target = target.transform;
     }
 
     public void OnTriggerExit (Collider target) {
