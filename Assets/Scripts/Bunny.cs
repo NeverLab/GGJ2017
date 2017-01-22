@@ -25,6 +25,12 @@ namespace Assets.Scripts
         {
             Trail.GetComponent<Renderer>().material = TrailMaterials[ControllerId - 1];
             Renderer.material = RabbitMaterials[ControllerId - 1];
+            _count++;
+        }
+
+        public void OnDestroy()
+        {
+            _count--;
         }
         
         public void Update()
@@ -82,7 +88,7 @@ namespace Assets.Scripts
             var offset = new Vector3(Mathf.Sign(angle), 0, Mathf.Cos(angle)) * transform.lossyScale.x;
 
             Instantiate(this, transform.position + offset, transform.rotation, transform.parent).transform.localScale = transform.localScale;
-            _count++;
+            BunnyCount.Refresh(ControllerId);
         }
     }
 }
