@@ -40,7 +40,6 @@ namespace Assets.Scripts
         {
             Timer.text = string.Format("Time left {0}", Mathf.Max(0, (int) TimeLeft));
             VRScore.text = string.Format("VR score {0}", microwave.Counter);
-            VRScore.text = microwave.Counter.ToString();
             Slider.value = TimeLeft > 0 ? (Time.time - CloneTime) / CloneInterval : 0;
 
             if (TimeLeft <= 0)
