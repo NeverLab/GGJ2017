@@ -14,6 +14,7 @@ namespace Assets.Scripts
         public float CloneInterval = 5;
         public int MaxBunnies = 32;
         public int RoundTime = 60;
+        public Microwave microwave;
 
         public static Game Instance;
 
@@ -43,7 +44,7 @@ namespace Assets.Scripts
             {
                 enabled = false;
                 WinMessage.transform.parent.gameObject.SetActive(true);
-                WinMessage.text = string.Format("VR score: {0}\nBest bunny: {1}", 0, BunnyCount.GetBest());
+                WinMessage.text = string.Format("VR score: {0}\nBest bunny: {1}", microwave.Counter, BunnyCount.GetBest());
                 StopAllCoroutines();
             }
         }
