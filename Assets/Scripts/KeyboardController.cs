@@ -9,13 +9,24 @@ namespace Assets.Scripts
         public KeyCode Right = KeyCode.D;
         public KeyCode Up = KeyCode.W;
         public KeyCode Down = KeyCode.S;
+        public RectTransform Joystick;
 
-        public void Update()
+        private int _controllerId;
+        private string _horizontalAxisName;
+        private string _verticalAxisName;
+
+        public void Start()
         {
             var controllerId = GetComponent<Bunny>().ControllerId;
 
-            CrossPlatformInputManager.SetAxis("Horizontal" + controllerId, Input.GetKey(Left) ? -1 : Input.GetKey(Right) ? 1 : 0);
-            CrossPlatformInputManager.SetAxis("Vertical" + controllerId, Input.GetKey(Down) ? -1 : Input.GetKey(Up) ? 1 : 0);
+            _horizontalAxisName = "Horizontal" + controllerId;
+            _verticalAxisName = "Vertical" + controllerId;
+        }
+
+        public void Update()
+        {
+            CrossPlatformInputManager.SetAxis(_horizontalAxisName, Input.GetKey(Left) ? -1 : Input.GetKey(Right) ? 1 : 0);
+            CrossPlatformInputManager.SetAxis(_verticalAxisName, Input.GetKey(Down) ? -1 : Input.GetKey(Up) ? 1 : 0);
         }
     }
 }
