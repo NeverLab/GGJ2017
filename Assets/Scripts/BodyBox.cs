@@ -13,7 +13,7 @@ namespace Assets.Scripts
 
             var direction = (transform.position - target.transform.position).normalized;
 
-            transform.parent.position += transform.lossyScale.x * new Vector3(direction.x, 0, direction.z) * Time.fixedDeltaTime;
+            //transform.parent.position += transform.lossyScale.x * new Vector3(direction.x, 0, direction.z) * Time.fixedDeltaTime;
         }
     }
 }
