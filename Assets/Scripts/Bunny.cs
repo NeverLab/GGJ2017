@@ -30,7 +30,6 @@ namespace Assets.Scripts
 
         public void OnDestroy()
         {
-            BunnyCount.Refresh (ControllerId);
             _count--;
         }
         
