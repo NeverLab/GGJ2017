@@ -39,6 +39,7 @@ namespace Assets.Scripts
             if (Catched)
             {
                 _direction = Vector3.zero;
+                AnimatorController.SetBool (AnimatorRunFlag, false);
                 foreach (var collider in Colliders)
                     collider.enabled = false;
                 return;

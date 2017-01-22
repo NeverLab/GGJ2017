@@ -44,6 +44,7 @@ namespace Assets.Scripts
 
             if (TimeLeft <= 0)
             {
+                Time.timeScale = 0.0f;
                 enabled = false;
                 WinMessage.transform.parent.gameObject.SetActive(true);
                 WinMessage.text = string.Format("VR score: {0}\nBest bunny: {1}", microwave.Counter, BunnyCount.GetBest());
@@ -69,6 +70,7 @@ namespace Assets.Scripts
 
         public void Reload()
         {
+            Time.timeScale = 1.0f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }

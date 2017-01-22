@@ -31,7 +31,7 @@ namespace Assets.Scripts
         {
             var index = Dict.OrderByDescending(i => FindObjectsOfType<Bunny>().Count(j => j.ControllerId == i.Key)).First().Key;
 
-            return new[] { "red", "blue", "green", "pink", "orange", "violet", "cyan", "gray" }[index];
+            return new[] { "red", "blue", "green", "pink", "orange", "violet", "cyan", "gray" }[index-1];
         }
     }
 }
