@@ -9,17 +9,27 @@ namespace Assets.Scripts
     {
         public int ControllerId;
         public Text Text;
-
-        public static Dictionary<int, BunnyCount> _dict = new Dictionary<int, BunnyCount>();
+        
+        public static Dictionary<int, BunnyCount> Dict = new Dictionary<int, BunnyCount>();
 
         public void Awake()
         {
-            _dict.Add(ControllerId, this);
+            Dict.Add(ControllerId, this);
+        }
+
+        public void OnDestroy()
+        {
+            Dict.Remove(ControllerId);
         }
 
         public static void Refresh(int controllerId)
         {
-            _dict[controllerId].GetComponent<Text>().text = FindObjectsOfType<Bunny>().Count(i => i.ControllerId == controllerId).ToString();
+            Dict[controllerId].GetComponent<Text>().text = FindObjectsOfType<Bunny>().Count(i => i.ControllerId == controllerId).ToString();
+        }
+
+        public static int GetBest()
+        {
+            return Dict.OrderByDescending(i => FindObjectsOfType<Bunny>().Count(j => j.ControllerId == i.Key)).First().Key;
         }
     }
 }

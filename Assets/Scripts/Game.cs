@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts
@@ -9,6 +10,7 @@ namespace Assets.Scripts
     {
         public Slider Slider;
         public Text Timer;
+        public Text WinMessage;
         public float CloneInterval = 5;
         public int MaxBunnies = 32;
         public int RoundTime = 60;
@@ -28,6 +30,7 @@ namespace Assets.Scripts
         public void Start()
         {
             StartTime = Time.time;
+            WinMessage.transform.parent.gameObject.SetActive(false);
             StartCoroutine(Clone(CloneInterval));
         }
 
@@ -35,6 +38,14 @@ namespace Assets.Scripts
         {
             Timer.text = Mathf.Max(0, (int)TimeLeft).ToString();
             Slider.value = TimeLeft > 0 ? (Time.time - CloneTime) / CloneInterval : 0;
+
+            if (TimeLeft <= 0)
+            {
+                enabled = false;
+                WinMessage.transform.parent.gameObject.SetActive(true);
+                WinMessage.text = string.Format("VR score: {0}\nBest bunny: {1}", 0, BunnyCount.GetBest());
+                StopAllCoroutines();
+            }
         }
 
         public IEnumerator Clone(float interval)
@@ -51,6 +62,11 @@ namespace Assets.Scripts
             }
 
             CloneTime = Time.time;
+        }
+
+        public void Reload()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
