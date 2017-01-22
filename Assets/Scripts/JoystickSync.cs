@@ -6,7 +6,7 @@ namespace Assets.Scripts
 {
     public class JoystickSync : EventTrigger
     {
-        private Vector3 _originalPosition;
+        private Vector3 _zeroPosition;
         private string _horizontalAxisName;
         private string _verticalAxisName;
 
@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
         public void Start()
         {
-            _originalPosition = GetComponent<RectTransform>().localPosition;
+            _zeroPosition = GetComponent<RectTransform>().localPosition;
             _horizontalAxisName = GetComponent<Joystick>().horizontalAxisName;
             _verticalAxisName = GetComponent<Joystick>().verticalAxisName;
         }
@@ -23,8 +23,10 @@ namespace Assets.Scripts
         {
             if (_drag) return;
 
-            GetComponent<RectTransform>().localPosition = _originalPosition
-                + 50 * new Vector3(CrossPlatformInputManager.GetAxis(_horizontalAxisName), CrossPlatformInputManager.GetAxis(_verticalAxisName));
+            var direction = new Vector3(CrossPlatformInputManager.GetAxis(_horizontalAxisName), CrossPlatformInputManager.GetAxis(_verticalAxisName)) +
+                new Vector3(Input.GetAxis(_horizontalAxisName), Input.GetAxis(_verticalAxisName));
+
+            GetComponent<RectTransform>().localPosition = _zeroPosition + 50 * direction;
         }
 
         public override void OnBeginDrag(PointerEventData data)
