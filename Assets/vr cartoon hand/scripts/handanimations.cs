@@ -3,6 +3,8 @@ using System.Collections;
 
 public class handanimations : MonoBehaviour
 {
+    public GameObject FalseHands;
+    public SteamVR_TrackedController tracker;
     Animator anim;
     int Idle = Animator.StringToHash("Idle");
     int Point = Animator.StringToHash("Point");
@@ -33,7 +35,19 @@ public class handanimations : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+
+        if (FalseHands != null)
+            FalseHands.SetActive (false);
+
+        if(tracker.padPressed) {
+            anim.SetTrigger (Point);
+        }else if(tracker.triggerPressed) {
+            anim.SetTrigger (Fist);
+        }
+        else {
+            anim.SetTrigger (Idle);
+        }
+        /*if (Input.GetKeyDown(KeyCode.Q))
         {
             anim.SetTrigger(Idle);
         }
@@ -120,7 +134,7 @@ public class handanimations : MonoBehaviour
 		else if (Input.GetKeyDown(KeyCode.Z))
         {
             anim.SetTrigger(Number4);
-        }
+        }*/
     }
   
 }
