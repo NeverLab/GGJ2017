@@ -82,6 +82,7 @@ namespace Assets.Scripts
             var offset = new Vector3(Mathf.Sign(angle), 0, Mathf.Cos(angle)) * transform.lossyScale.x;
 
             Instantiate(this, transform.position + offset, transform.rotation, transform.parent).transform.localScale = transform.localScale;
+            BunnyCount.Refresh(ControllerId);
             _count++;
         }
     }

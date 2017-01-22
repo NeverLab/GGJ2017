@@ -8,11 +8,17 @@ namespace Assets.Scripts
     public class Game : MonoBehaviour
     {
         public Slider Slider;
+        public Text Timer;
         public float CloneInterval = 5;
         public int MaxBunnies = 32;
+        public int RoundTime = 60;
 
         public static Game Instance;
-        private float _cloneTime;
+
+        public float StartTime { get; private set; }
+        public float CloneTime { get; private set; }
+
+        public float TimeLeft { get { return RoundTime - (Time.time - StartTime); } }
 
         public void Awake()
         {
@@ -21,12 +27,14 @@ namespace Assets.Scripts
 
         public void Start()
         {
+            StartTime = Time.time;
             StartCoroutine(Clone(CloneInterval));
         }
 
         public void Update()
         {
-            Slider.value = (Time.time - _cloneTime) / CloneInterval;
+            Timer.text = Mathf.Max(0, (int)TimeLeft).ToString();
+            Slider.value = TimeLeft > 0 ? (Time.time - CloneTime) / CloneInterval : 0;
         }
 
         public IEnumerator Clone(float interval)
@@ -42,7 +50,7 @@ namespace Assets.Scripts
                 groups[key][Random.Range(0, groups[key].Count)].Clone();
             }
 
-            _cloneTime = Time.time;
+            CloneTime = Time.time;
         }
     }
 }
