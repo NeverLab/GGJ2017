@@ -27,9 +27,11 @@ namespace Assets.Scripts
             Dict[controllerId].GetComponent<Text>().text = FindObjectsOfType<Bunny>().Count(i => i.ControllerId == controllerId).ToString();
         }
 
-        public static int GetBest()
+        public static string GetBest()
         {
-            return Dict.OrderByDescending(i => FindObjectsOfType<Bunny>().Count(j => j.ControllerId == i.Key)).First().Key;
+            var index = Dict.OrderByDescending(i => FindObjectsOfType<Bunny>().Count(j => j.ControllerId == i.Key)).First().Key;
+
+            return new[] { "red", "blue", "green", "pink", "orange", "violet", "cyan", "gray" }[index];
         }
     }
 }
