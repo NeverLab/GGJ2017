@@ -15,6 +15,7 @@ namespace Assets.Scripts
         public Renderer Renderer;
         public Material[] RabbitMaterials;
         public Collider[] Colliders;
+        public bool StopByMusic = false;
         public bool Catched;
 
         private Vector3 _direction = Vector3.forward;
@@ -37,6 +38,9 @@ namespace Assets.Scripts
             }
             foreach (var collider in Colliders)
                 collider.enabled = true;
+
+            if (StopByMusic)
+                return;
 
             var x = CrossPlatformInputManager.GetAxis("Horizontal" + ControllerId) + Input.GetAxis("Horizontal" + ControllerId);
             var y = CrossPlatformInputManager.GetAxis("Vertical" + ControllerId) + Input.GetAxis("Vertical" + ControllerId);
