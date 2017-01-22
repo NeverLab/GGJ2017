@@ -41,7 +41,7 @@ namespace Assets.Scripts
             var x = CrossPlatformInputManager.GetAxis("Horizontal" + ControllerId) + Input.GetAxis("Horizontal" + ControllerId);
             var y = CrossPlatformInputManager.GetAxis("Vertical" + ControllerId) + Input.GetAxis("Vertical" + ControllerId);
 
-            _direction = new Vector3(x, 0, y);
+            _direction = new Vector3(x, 0, y).normalized;
 
             if (_direction.magnitude > 0)
             {
