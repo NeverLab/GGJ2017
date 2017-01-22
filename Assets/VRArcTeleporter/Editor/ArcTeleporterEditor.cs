@@ -36,8 +36,8 @@ public class ArcTeleporterEditor : Editor
 
         SerializedProperty Effect = serializedTeleporter.FindProperty ("Effect");
         Effect.objectReferenceValue = EditorGUILayout.ObjectField ("Effect GO", Effect.objectReferenceValue, typeof (GameObject), true);
-        SerializedProperty EffectTarget = serializedTeleporter.FindProperty ("EffectTarget");
-        EffectTarget.objectReferenceValue = EditorGUILayout.ObjectField ("Effect Target GO", EffectTarget.objectReferenceValue, typeof (GameObject), true);
+        /*SerializedProperty EffectTarget = serializedTeleporter.FindProperty ("EffectTarget");
+        EffectTarget.objectReferenceValue = EditorGUILayout.ObjectField ("Effect Target GO", EffectTarget.objectReferenceValue, typeof (GameObject), true);*/
 
         if (!disablePreMadeControls.boolValue)
 		{

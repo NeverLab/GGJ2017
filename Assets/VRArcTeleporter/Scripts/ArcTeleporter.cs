@@ -12,7 +12,7 @@ using UnityStandardAssets.ImageEffects;
 public class ArcTeleporter : MonoBehaviour 
 {
     public GameObject Effect;
-    public GameObject EffectTarget;
+    //public GameObject EffectTarget;
 
     public enum ArcMaterial
 	{
@@ -259,10 +259,12 @@ public class ArcTeleporter : MonoBehaviour
 		GameObject arcParentObject = new GameObject("ArcTeleporter");
 		arcParentObject.transform.localScale = _vrPlayArea.localScale;
 		GameObject arcLine1 = new GameObject("ArcLine1");
+        arcLine1.layer = LayerMask.NameToLayer ("NotDisplay");
 		arcLine1.transform.SetParent(arcParentObject.transform);
 		_lineRenderer = arcLine1.AddComponent<LineRenderer>();
 		GameObject arcLine2 = new GameObject("ArcLine2");
-		arcLine2.transform.SetParent(arcParentObject.transform);
+        arcLine2.layer = LayerMask.NameToLayer ("NotDisplay");
+        arcLine2.transform.SetParent(arcParentObject.transform);
 		_lineRenderer2 = arcLine2.AddComponent<LineRenderer>();
 		_lineRenderer.startWidth = _lineRenderer.endWidth = arcLineWidth*_vrPlayArea.localScale.magnitude;
 		_lineRenderer2.startWidth = _lineRenderer2.endWidth = arcLineWidth*_vrPlayArea.localScale.magnitude;
@@ -983,9 +985,9 @@ public class ArcTeleporter : MonoBehaviour
 			oldTrackpadAxis = Vector2.zero;
 		}
 
-        if(Effect != null && EffectTarget != null) {
+        if(Effect != null/* && EffectTarget != null*/) {
             Effect.SetActive (false);
-            Effect.transform.position = EffectTarget.transform.position;
+            //Effect.transform.position = EffectTarget.transform.position;
             Effect.SetActive (true);
         }
 	}
