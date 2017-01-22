@@ -53,7 +53,7 @@ public class HandController : MonoBehaviour {
             if (_catchedTarget != null) {
                 //Debug.LogWarning ("Not Catched: " + _catchedTarget.name);
                 var bunny = _catchedTarget/*.parent*/.GetComponent<Bunny> ();
-                bunny.catched = false;
+                bunny.Catched = false;
                 _catchedTarget = null;
             }
             _target = null;
@@ -70,7 +70,7 @@ public class HandController : MonoBehaviour {
         if(_catchedTarget != null) {
             if (_catchedTarget/*.parent*/.tag == BunnyTagName) {
                 var bunny = _catchedTarget/*.parent*/.GetComponent<Bunny> ();
-                bunny.catched = true;
+                bunny.Catched = true;
             }
 
             _catchedTarget.position = transform.position + Offset;

@@ -9,8 +9,15 @@ namespace Assets.Scripts
     {
         public Slider Slider;
         public float CloneInterval = 5;
+        public int MaxBunnies = 32;
 
+        public static Game Instance;
         private float _cloneTime;
+
+        public void Awake()
+        {
+            Instance = this;
+        }
 
         public void Start()
         {

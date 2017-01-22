@@ -15,9 +15,10 @@ namespace Assets.Scripts
         public Renderer Renderer;
         public Material[] RabbitMaterials;
         public Collider[] Colliders;
-        public bool catched;
+        public bool Catched;
 
         private Vector3 _direction = Vector3.forward;
+        private static int _count;
 
         public void Start()
         {
@@ -27,7 +28,7 @@ namespace Assets.Scripts
         
         public void Update()
         {
-            if (catched)
+            if (Catched)
             {
                 _direction = Vector3.zero;
                 foreach (var collider in Colliders)
@@ -60,7 +61,7 @@ namespace Assets.Scripts
 
         public void FixedUpdate()
         {
-            if (catched) {
+            if (Catched) {
                 return;
             }
             foreach (var collider in Colliders)
@@ -71,14 +72,13 @@ namespace Assets.Scripts
 
         public void Clone()
         {
-            if (catched) {
-                return;
-            }
+            if (Catched || _count >= Game.Instance.MaxBunnies) return;
 
             var angle = Random.Range(0, Mathf.PI);
             var offset = new Vector3(Mathf.Sign(angle), 0, Mathf.Cos(angle)) * transform.lossyScale.x;
 
             Instantiate(this, transform.position + offset, transform.rotation, transform.parent).transform.localScale = transform.localScale;
+            _count++;
         }
     }
 }
