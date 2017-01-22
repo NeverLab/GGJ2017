@@ -10,6 +10,7 @@ namespace Assets.Scripts
     {
         public Slider Slider;
         public Text Timer;
+        public Text VRScore;
         public Text WinMessage;
         public float CloneInterval = 5;
         public int MaxBunnies = 32;
@@ -32,12 +33,14 @@ namespace Assets.Scripts
         {
             StartTime = Time.time;
             WinMessage.transform.parent.gameObject.SetActive(false);
-            StartCoroutine(Clone(CloneInterval));
+            StartCoroutine(Clone(2));
         }
 
         public void Update()
         {
-            Timer.text = Mathf.Max(0, (int)TimeLeft).ToString();
+            Timer.text = string.Format("Time left {0}", Mathf.Max(0, (int) TimeLeft));
+            VRScore.text = string.Format("VR score {0}", microwave.Counter);
+            VRScore.text = microwave.Counter.ToString();
             Slider.value = TimeLeft > 0 ? (Time.time - CloneTime) / CloneInterval : 0;
 
             if (TimeLeft <= 0)
@@ -53,7 +56,7 @@ namespace Assets.Scripts
         {
             yield return new WaitForSeconds(interval);
 
-            StartCoroutine(Clone(interval));
+            StartCoroutine(Clone(CloneInterval));
 
             var groups = FindObjectsOfType<Bunny>().GroupBy(i => i.ControllerId).ToDictionary(i => i.Key, i => i.ToList());
 
